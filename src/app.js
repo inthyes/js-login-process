@@ -5,7 +5,7 @@ const express = require("express");
 const app = express();
 
 //routing
-const home = require("./routes/home");
+const home = require("./home");
 
 
 //앱 세팅
