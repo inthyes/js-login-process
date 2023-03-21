@@ -11,4 +11,6 @@ router.get("/",ctrl.home);
 
 router.get("/login",ctrl.login);
 
+// router.post("/login",ctrl.login);
+
 module.exports = router;
