@@ -7,11 +7,15 @@ const app = express();
 //routing
 const home = require("./src/routes/home");
 
+const bodyParser = require("body-parser");
 
 //앱 세팅
 app.set("views", "./src/views");
 app.set("view engine", "ejs");
 app.use(express.static(`${__dirname}/src/public`));
+app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({extended:true}));
 
 app.listen(3000,() => {
     console.log("서버가동");
