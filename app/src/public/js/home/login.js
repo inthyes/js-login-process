@@ -2,11 +2,11 @@
 
 const id = document.querySelector("#id"),
     psword = document.querySelector("#psword"),
-    loginBtn = document.querySelector("button");
+    loginBtn = document.querySelector("#button");
 
-loginBtn.addEventListener("click",login);
+registerBtn.addEventListener("click",register);
 
-function login(){
+function register(){
     // const req={
     //     id : id.value,
     //     psword : psword.value,
