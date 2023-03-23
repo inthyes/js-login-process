@@ -23,6 +23,12 @@ const process = {
         return res.json(response);
 
     },
+    register: (req, res) => {
+        const user = new User(req.body); //여기서의 body가 User클래스의 body로 들어감
+        const response = user.register();
+        return res.json(response);
+
+    },
 };
 
 module.exports = {
