@@ -25,7 +25,9 @@ const home = require("./src/routes/home");
 
 app.set("views", "./src/views");
 app.set("view engine", "ejs");
-
+app.use(express.static(`${__dirname}/src/public`)); 
+//{dirname}은 현재 있는 app.js의 위치를 반환해준다. app.js안에있는 
+//src안에있는 public 폴더를 정적 경로를 만들어줌
 
 app.use("/",home); //미들웨어를 등록해주는 메소드
 
