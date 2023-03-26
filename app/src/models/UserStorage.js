@@ -16,8 +16,10 @@ class UserStorage {
         return userInfo;
     }
 
-    static getUsers(...fields){
-        // const users = this.#users;
+    static #getUsers(data, isAll, fields){
+        const users = JSON.parse(data);
+        if (isAll) return users;
+
         const newUsers = fields.reduce((newUsers, field) => { 
             //newUsers에는 fields의 초기값이 들어가게 되는데, 
             //이 초기값은 내가 지정할 수 있고 다음 변수들은 field에 들어오게 된다
@@ -31,6 +33,15 @@ class UserStorage {
         return newUsers;
     }
 
+    static getUsers(isAll, ...fields){
+        return fs
+            .readFile("./src/databases/users.json")
+            .then((data)=>{
+                return this.#getUsers(data, isAll, fields);
+        })
+        .catch(console.error);
+    }
+
     static getUserInfo(id) {
         return fs
             .readFile("./src/databases/users.json")
@@ -42,13 +53,18 @@ class UserStorage {
 
    
 
-    static save(userInfo) {
-        // const users = this.#users;
+    static async save(userInfo) {
+        const users = await this.getUsers(true);
+        if(users.id.includes(userInfo.id)){
+           throw "이미 존재한다.";
+        }
         users.id.push(userInfo.id);
         users.name.push(userInfo.name);
         users.psword.push(userInfo.psword);
-        return { success : true };
-    }
+    
+        //데이터 추가
+        fs.writeFile("./src/databases/users.json", JSON.stringify(users));
+        return{success: true};
+        }
 }
-
 module.exports = UserStorage;
