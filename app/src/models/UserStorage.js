@@ -1,6 +1,6 @@
 "use strict";
 
-const fs = require("fs").promises;
+const db = require("../config/db");
 
 class UserStorage {
 
@@ -33,38 +33,26 @@ class UserStorage {
         return newUsers;
     }
 
-    static getUsers(isAll, ...fields){
-        return fs
-            .readFile("./src/databases/users.json")
-            .then((data)=>{
-                return this.#getUsers(data, isAll, fields);
-        })
-        .catch(console.error);
-    }
+    static getUsers(isAll, ...fields){}
 
     static getUserInfo(id) {
-        return fs
-            .readFile("./src/databases/users.json")
-            .then((data)=>{
-                return this.#getUserInfo(data, id);
-        })
-        .catch(console.error);
-    }
+        // db.query("SELECT * FROM users", (err, data) =>{
+        //     console.log(data);
 
+        sql="select * from users";
+
+        db.query(sql,function(err,results,fields){
+            if(err){
+                console.log(err);
+            }
+            console.log(results);
+        });
+        // });
+    }
+ 
    
 
     static async save(userInfo) {
-        const users = await this.getUsers(true);
-        if(users.id.includes(userInfo.id)){
-           throw "이미 존재한다.";
-        }
-        users.id.push(userInfo.id);
-        users.name.push(userInfo.name);
-        users.psword.push(userInfo.psword);
-    
-        //데이터 추가
-        fs.writeFile("./src/databases/users.json", JSON.stringify(users));
-        return{success: true};
         }
 }
 module.exports = UserStorage;
