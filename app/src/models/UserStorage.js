@@ -29,20 +29,22 @@ class UserStorage {
               reject(`${err}`);
               return;
             }
-            const query = "insert into users(id, name, psword) values(?, ?, ?);";
-      
+            const query = "INSERT INTO users(id, name, psword) VALUES (?, ?, ?);";
+        
             db.query(
               query,
               [userInfo.id, userInfo.name, userInfo.psword],
-              (err) => {
-                if (err) reject(`${err}`);
-                  reject(err);
-                  resolve({ success: true });
-                })
+              (err, result) => {
+                if (err) {
+                  reject(`${err}`);
+                  return;
+                }
+                resolve({ success: true });
               }
             );
           });
-        
+        });
       }
+      
 }
 module.exports = UserStorage;
