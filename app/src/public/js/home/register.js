@@ -10,7 +10,7 @@ registerBtn.addEventListener("click", register);
 
 function register() {
     if (!id.value) return alert("아이디를 입력해주세요");
-    if (psword.value !== confirmPsword.value) return alert("비번이 일치하지않습니다");
+    if (psword.value !== confirmPsword.value) return alert("비빌입니다이 일치하지않습니다");
 
 
     const req = {
@@ -33,7 +33,7 @@ function register() {
         if(res.success) {
             location.href = "/login";
         } else {
-            alert(res.msg);
+            if (res.err) return alert(res.err);
         }
     }).catch((err)=> {
         console.error("회원가입 중 에러 발생");

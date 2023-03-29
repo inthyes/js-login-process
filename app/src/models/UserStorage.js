@@ -12,9 +12,9 @@ class UserStorage {
                 const query = "SELECT * FROM users where id = ?;";
                 if (err) reject(err);
                 db.query(query, [id], (err, data) => {
-                    if (err) reject(err);
-                    console.log(data[0]);
-                    resolve(data[0]);
+                    if (err) reject(`${err}`);
+                    
+                    else resolve(data[0]);
                 });
             });
         });
@@ -35,11 +35,8 @@ class UserStorage {
               query,
               [userInfo.id, userInfo.name, userInfo.psword],
               (err, result) => {
-                if (err) {
-                  reject(`${err}`);
-                  return;
-                }
-                resolve({ success: true });
+                if (err) reject(`${err}`);
+                else resolve({ success: true });
               }
             );
           });
