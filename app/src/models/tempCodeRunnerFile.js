@@ -1,1 +1,0 @@
-  // resolve(data[0]);
